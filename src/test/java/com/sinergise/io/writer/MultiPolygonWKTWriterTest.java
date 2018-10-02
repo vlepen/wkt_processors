@@ -1,4 +1,4 @@
-package com.sinergise.io.printer;
+package com.sinergise.io.writer;
 
 import com.sinergise.geometry.LineString;
 import com.sinergise.geometry.MultiPolygon;
@@ -7,15 +7,15 @@ import org.junit.Test;
 
 import static org.assertj.core.api.Assertions.assertThat;
 
-public class MultiPolygonWKTPrinterTest {
+public class MultiPolygonWKTWriterTest {
 	@Test
-	public void shouldPrintEmptyMultiPolygon() {
-		assertThat(new MultiPolygonWKTPrinter().print(new MultiPolygon())).isEqualTo("MULTIPOLYGON EMPTY");
+	public void shouldWriteEmptyMultiPolygon() {
+		assertThat(new MultiPolygonWKTWriter().write(new MultiPolygon())).isEqualTo("MULTIPOLYGON EMPTY");
 	}
 
 	@Test
-	public void shouldPrintNonEmptyMultiPolygonWithHole() {
-		assertThat(new MultiPolygonWKTPrinter().print(createMultiPolygonWithHole()))
+	public void shouldWriteNonEmptyMultiPolygonWithHole() {
+		assertThat(new MultiPolygonWKTWriter().write(createMultiPolygonWithHole()))
 				.isEqualTo("MULTIPOLYGON (" +
 						"((40 40, 20 45, 45 30, 40 40)), " +
 						"((20 35, 10 30, 10 10, 30 5, 45 20, 20 35), " +
@@ -24,8 +24,8 @@ public class MultiPolygonWKTPrinterTest {
 	}
 
 	@Test
-	public void shouldPrintNonEmptyMultiPolygonWithMultipleHoles() {
-		assertThat(new MultiPolygonWKTPrinter().print(createMultiPolygonWithMultipleHoles()))
+	public void shouldWriteNonEmptyMultiPolygonWithMultipleHoles() {
+		assertThat(new MultiPolygonWKTWriter().write(createMultiPolygonWithMultipleHoles()))
 				.isEqualTo("MULTIPOLYGON (" +
 						"((40 40, 20 45, 45 30, 40 40)), " +
 						"((20 35, 10 30, 10 10, 30 5, 45 20, 20 35), " +
@@ -34,21 +34,21 @@ public class MultiPolygonWKTPrinterTest {
 	}
 
 	@Test
-	public void shouldPrintShortEmptyMultiPolygon() {
-		assertThat(new MultiPolygonWKTPrinter().printShort(new MultiPolygon())).isEqualTo("EMPTY");
+	public void shouldWriteShortEmptyMultiPolygon() {
+		assertThat(new MultiPolygonWKTWriter().writeShort(new MultiPolygon())).isEqualTo("EMPTY");
 	}
 
 	@Test
-	public void shouldPrintShortNonEmptyMultiPolygonWithHole() {
-		assertThat(new MultiPolygonWKTPrinter().printShort(createMultiPolygonWithHole()))
+	public void shouldWriteShortNonEmptyMultiPolygonWithHole() {
+		assertThat(new MultiPolygonWKTWriter().writeShort(createMultiPolygonWithHole()))
 				.isEqualTo("((40 40, 20 45, 45 30, 40 40)), " +
 						"((20 35, 10 30, 10 10, 30 5, 45 20, 20 35), " +
 						"(30 20, 20 15, 20 25, 30 20))");
 	}
 
 	@Test
-	public void shouldPrintShortNonEmptyMultiPolygonWithMultipleHoles() {
-		assertThat(new MultiPolygonWKTPrinter().printShort(createMultiPolygonWithMultipleHoles()))
+	public void shouldWriteShortNonEmptyMultiPolygonWithMultipleHoles() {
+		assertThat(new MultiPolygonWKTWriter().writeShort(createMultiPolygonWithMultipleHoles()))
 				.isEqualTo("((40 40, 20 45, 45 30, 40 40)), " +
 						"((20 35, 10 30, 10 10, 30 5, 45 20, 20 35), " +
 						"(30 20, 20 15, 20 25, 30 20), (35 25, 25 15, 25 25, 35 25))");

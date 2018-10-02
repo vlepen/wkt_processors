@@ -1,4 +1,4 @@
-package com.sinergise.io.printer;
+package com.sinergise.io.writer;
 
 import com.sinergise.geometry.MultiPoint;
 
@@ -8,23 +8,23 @@ import static com.sinergise.io.common.WKTConstants.EMPTY;
 import static com.sinergise.io.geometry.WKTGeometryType.MULTI_POINT;
 import static java.lang.ThreadLocal.withInitial;
 
-public class MultiPointWKTPrinter implements GeometryWKTPrinter<MultiPoint> {
-	private static final ThreadLocal<PointWKTPrinter> POINT_PRINTER = withInitial(PointWKTPrinter::new);
+public class MultiPointWKTWriter implements GeometryWKTWriter<MultiPoint> {
+	private static final ThreadLocal<PointWKTWriter> POINT_WRITER = withInitial(PointWKTWriter::new);
 
 	@Override
-	public String print(MultiPoint geometry) {
-		return MULTI_POINT.getWktName() + " " + printShortDecorated(geometry);
+	public String write(MultiPoint geometry) {
+		return MULTI_POINT.getWktName() + " " + writeShortDecorated(geometry);
 	}
 
 	@Override
-	public String printShort(MultiPoint geometry) {
+	public String writeShort(MultiPoint geometry) {
 		StringBuilder wktString = new StringBuilder();
 		if (geometry.isEmpty()) {
 			wktString.append(EMPTY);
 		} else {
 			IntStream.range(0, geometry.size())
 					.forEach(i -> {
-						wktString.append(POINT_PRINTER.get().printShortDecorated(geometry.get(i)));
+						wktString.append(POINT_WRITER.get().writeShortDecorated(geometry.get(i)));
 						if (i < geometry.size() - 1) {
 							wktString.append(", ");
 						}

@@ -1,20 +1,20 @@
-package com.sinergise.io.printer;
+package com.sinergise.io.writer;
 
 import com.sinergise.geometry.*;
 import org.junit.Test;
 
 import static org.assertj.core.api.Assertions.assertThat;
 
-public class GeometryCollectionWKTPrinterTest {
+public class GeometryCollectionWKTWriterTest {
 	@Test
-	public void shouldPrintEmptyGeometryCollection() {
-		assertThat(new GeometryCollectionWKTPrinter().print(new GeometryCollection<>()))
+	public void shouldWriterEmptyGeometryCollection() {
+		assertThat(new GeometryCollectionWKTWriter().write(new GeometryCollection<>()))
 				.isEqualTo("GEOMETRYCOLLECTION EMPTY");
 	}
 
 	@Test
-	public void shouldPrintNonEmptyGeometryCollectionWithPrimitiveGeometryTypes() {
-		assertThat(new GeometryCollectionWKTPrinter().print(new GeometryCollection<>(
+	public void shouldWriterNonEmptyGeometryCollectionWithPrimitiveGeometryTypes() {
+		assertThat(new GeometryCollectionWKTWriter().write(new GeometryCollection<>(
 				new Geometry[]{
 						new Point(10, 20),
 						new LineString(new double[]{4, 6, 7, 10}),

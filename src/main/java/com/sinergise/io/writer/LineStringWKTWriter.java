@@ -1,4 +1,4 @@
-package com.sinergise.io.printer;
+package com.sinergise.io.writer;
 
 import com.sinergise.geometry.LineString;
 
@@ -8,14 +8,14 @@ import static com.sinergise.io.common.WKTConstants.EMPTY;
 import static com.sinergise.io.geometry.WKTGeometryType.LINE_STRING;
 import static java.lang.String.format;
 
-public class LineStringWKTPrinter implements GeometryWKTPrinter<LineString> {
+public class LineStringWKTWriter implements GeometryWKTWriter<LineString> {
 	@Override
-	public String print(LineString geometry) {
-		return LINE_STRING.getWktName() + " " + printShortDecorated(geometry);
+	public String write(LineString geometry) {
+		return LINE_STRING.getWktName() + " " + writeShortDecorated(geometry);
 	}
 
 	@Override
-	public String printShort(LineString geometry) {
+	public String writeShort(LineString geometry) {
 		StringBuilder wktString = new StringBuilder();
 		if (geometry.isEmpty()) {
 			wktString.append(EMPTY);
@@ -24,8 +24,8 @@ public class LineStringWKTPrinter implements GeometryWKTPrinter<LineString> {
 					.forEach(i -> {
 						wktString.append(format(
 								"%s %s",
-								WKTCoordPrinter.print(geometry.getX(i)),
-								WKTCoordPrinter.print(geometry.getY(i)))
+								WKTCoordFormatter.format(geometry.getX(i)),
+								WKTCoordFormatter.format(geometry.getY(i)))
 						);
 						if (i < geometry.getNumCoords() - 1) {
 							wktString.append(", ");

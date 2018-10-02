@@ -1,4 +1,4 @@
-package com.sinergise.io.printer;
+package com.sinergise.io.writer;
 
 import com.sinergise.geometry.LineString;
 import com.sinergise.geometry.Polygon;
@@ -6,23 +6,23 @@ import org.junit.Test;
 
 import static org.assertj.core.api.Assertions.assertThat;
 
-public class PolygonWKTPrinterTest {
+public class PolygonWKTWriterTest {
 	@Test
-	public void shouldPrintEmptyPolygon() {
-		assertThat(new PolygonWKTPrinter().print(new Polygon())).isEqualTo("POLYGON EMPTY");
+	public void shouldWriteEmptyPolygon() {
+		assertThat(new PolygonWKTWriter().write(new Polygon())).isEqualTo("POLYGON EMPTY");
 	}
 
 	@Test
-	public void shouldPrintNonEmptyPolygonWithNoHoles() {
-		assertThat(new PolygonWKTPrinter().print(
+	public void shouldWriteNonEmptyPolygonWithNoHoles() {
+		assertThat(new PolygonWKTWriter().write(
 				new Polygon(new LineString(new double[]{30, 10, 40, 40, 20, 40, 10, 20, 30, 10}), null)
 		))
 				.isEqualTo("POLYGON ((30 10, 40 40, 20 40, 10 20, 30 10))");
 	}
 
 	@Test
-	public void shouldPrintNonEmptyPolygonWithHole() {
-		assertThat(new PolygonWKTPrinter().print(
+	public void shouldWriteNonEmptyPolygonWithHole() {
+		assertThat(new PolygonWKTWriter().write(
 				new Polygon(new LineString(new double[]{30, 10, 40, 40, 20, 40, 10, 20, 30, 10}),
 						new LineString[]{
 								new LineString(new double[]{35, 15, 45, 45, 25, 45, 15, 25, 35, 15})
@@ -33,8 +33,8 @@ public class PolygonWKTPrinterTest {
 	}
 
 	@Test
-	public void shouldPrintNonEmptyPolygonWithHoles() {
-		assertThat(new PolygonWKTPrinter().print(createPolygon()))
+	public void shouldWriteNonEmptyPolygonWithHoles() {
+		assertThat(new PolygonWKTWriter().write(createPolygon()))
 				.isEqualTo(
 						"POLYGON (" +
 								"(30 10, 40 40, 20 40, 10 20, 30 10), " +
@@ -45,21 +45,21 @@ public class PolygonWKTPrinterTest {
 	}
 
 	@Test
-	public void shouldPrintShortEmptyPolygon() {
-		assertThat(new PolygonWKTPrinter().printShort(new Polygon())).isEqualTo("EMPTY");
+	public void shouldWriteShortEmptyPolygon() {
+		assertThat(new PolygonWKTWriter().writeShort(new Polygon())).isEqualTo("EMPTY");
 	}
 
 	@Test
-	public void shouldPrintShortNonEmptyPolygonWithNoHoles() {
-		assertThat(new PolygonWKTPrinter().printShort(
+	public void shouldWriteShortNonEmptyPolygonWithNoHoles() {
+		assertThat(new PolygonWKTWriter().writeShort(
 				new Polygon(new LineString(new double[]{30, 10, 40, 40, 20, 40, 10, 20, 30, 10}), null)
 		))
 				.isEqualTo("(30 10, 40 40, 20 40, 10 20, 30 10)");
 	}
 
 	@Test
-	public void shouldPrintShortNonEmptyPolygonWithHole() {
-		assertThat(new PolygonWKTPrinter().printShort(
+	public void shouldWriteShortNonEmptyPolygonWithHole() {
+		assertThat(new PolygonWKTWriter().writeShort(
 				new Polygon(
 						new LineString(new double[]{30, 10, 40, 40, 20, 40, 10, 20, 30, 10}),
 						new LineString[]{new LineString(new double[]{35, 15, 45, 45, 25, 45, 15, 25, 35, 15})}
@@ -69,8 +69,8 @@ public class PolygonWKTPrinterTest {
 	}
 
 	@Test
-	public void shouldPrintShortNonEmptyPolygonWithHoles() {
-		assertThat(new PolygonWKTPrinter().printShort(createPolygon()))
+	public void shouldWriteShortNonEmptyPolygonWithHoles() {
+		assertThat(new PolygonWKTWriter().writeShort(createPolygon()))
 				.isEqualTo(
 						"(30 10, 40 40, 20 40, 10 20, 30 10), " +
 								"(35 15, 45 45, 25 45, 15 25, 35 15), " +

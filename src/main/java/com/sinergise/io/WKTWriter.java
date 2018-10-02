@@ -2,7 +2,7 @@ package com.sinergise.io;
 
 import com.sinergise.geometry.Geometry;
 
-import static com.sinergise.io.printer.util.WKTPrintersDelegate.delegateToPrinter;
+import static com.sinergise.io.writer.util.WKTWritersDelegate.delegateToWriter;
 
 public class WKTWriter {
 
@@ -14,6 +14,6 @@ public class WKTWriter {
 	 * </code></pre>
 	 */
 	public String write(Geometry geom) {
-		return delegateToPrinter(geom);
+		return delegateToWriter(geom);
 	}
 }

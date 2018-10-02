@@ -1,4 +1,4 @@
-package com.sinergise.io.printer;
+package com.sinergise.io.writer;
 
 import com.sinergise.geometry.Geometry;
 import com.sinergise.geometry.GeometryCollection;
@@ -7,11 +7,11 @@ import java.util.stream.IntStream;
 
 import static com.sinergise.io.common.WKTConstants.EMPTY;
 import static com.sinergise.io.geometry.WKTGeometryType.GEOMETRY_COLLECTION;
-import static com.sinergise.io.printer.util.WKTPrintersDelegate.delegateToPrinter;
+import static com.sinergise.io.writer.util.WKTWritersDelegate.delegateToWriter;
 
-public class GeometryCollectionWKTPrinter implements GeometryWKTPrinter<GeometryCollection<? extends Geometry>> {
+public class GeometryCollectionWKTWriter implements GeometryWKTWriter<GeometryCollection<? extends Geometry>> {
 	@Override
-	public String print(GeometryCollection<? extends Geometry> geometry) {
+	public String write(GeometryCollection<? extends Geometry> geometry) {
 		StringBuilder wktString = new StringBuilder(GEOMETRY_COLLECTION.getWktName() + " ");
 		if (geometry.isEmpty()) {
 			wktString.append(EMPTY);
@@ -19,7 +19,7 @@ public class GeometryCollectionWKTPrinter implements GeometryWKTPrinter<Geometry
 			wktString.append("(");
 			IntStream.range(0, geometry.size())
 					.forEach(i -> {
-						wktString.append(delegateToPrinter(geometry.get(i)));
+						wktString.append(delegateToWriter(geometry.get(i)));
 						if (i < geometry.size() - 1) {
 							wktString.append(", ");
 						}
@@ -31,7 +31,7 @@ public class GeometryCollectionWKTPrinter implements GeometryWKTPrinter<Geometry
 	}
 
 	@Override
-	public String printShort(GeometryCollection<? extends Geometry> geometry) {
-		return print(geometry);
+	public String writeShort(GeometryCollection<? extends Geometry> geometry) {
+		return write(geometry);
 	}
 }

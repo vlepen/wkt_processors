@@ -24,7 +24,7 @@ public final class WKTReadersDelegate {
 	private WKTReadersDelegate() {
 	}
 
-	public static Geometry delegateToPrinter(GeometryType geometryType, String values) {
+	public static Geometry delegateToReader(GeometryType geometryType, String values) {
 		GeometryWKTReader reader = READERS.get().get(geometryType);
 		return reader.read(values);
 	}

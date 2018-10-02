@@ -7,7 +7,7 @@ import java.util.regex.Pattern;
 
 import static com.sinergise.io.common.WKTConstants.EMPTY;
 import static com.sinergise.io.geometry.WKTGeometryType.*;
-import static com.sinergise.io.reader.util.WKTReadersDelegate.delegateToPrinter;
+import static com.sinergise.io.reader.util.WKTReadersDelegate.delegateToReader;
 import static java.lang.String.format;
 
 public class WKTReader {
@@ -33,7 +33,7 @@ public class WKTReader {
 		Pattern pattern = Pattern.compile(GEOMETRY_TYPE_REGEX);
 		Matcher matcher = pattern.matcher(wktString);
 		if (matcher.matches()) {
-			return delegateToPrinter(
+			return delegateToReader(
 					findByWKTName(matcher.group(READER_TYPE_GROUP_NAME)).getGeometryType(),
 					matcher.group(READER_EMPTY_GROUP_NAME) != null ?
 							matcher.group(READER_EMPTY_GROUP_NAME) :

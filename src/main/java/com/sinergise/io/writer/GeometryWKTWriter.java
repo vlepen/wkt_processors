@@ -1,21 +1,21 @@
-package com.sinergise.io.printer;
+package com.sinergise.io.writer;
 
 import com.sinergise.geometry.Geometry;
 
 import static com.sinergise.io.common.WKTConstants.EMPTY;
 
-public interface GeometryWKTPrinter<T extends Geometry> {
-	String print(T geometry);
+public interface GeometryWKTWriter<T extends Geometry> {
+	String write(T geometry);
 
-	String printShort(T geometry);
+	String writeShort(T geometry);
 
-	default String printShortDecorated(T geometry) {
+	default String writeShortDecorated(T geometry) {
 		StringBuilder wktString = new StringBuilder();
 		if (geometry.isEmpty()) {
 			wktString.append(EMPTY);
 		} else {
 			wktString.append("(");
-			wktString.append(printShort(geometry));
+			wktString.append(writeShort(geometry));
 			wktString.append(")");
 		}
 
