@@ -5,6 +5,7 @@ import com.sinergise.geometry.Polygon;
 import java.util.stream.IntStream;
 
 import static com.sinergise.io.common.WKTConstants.EMPTY;
+import static com.sinergise.io.geometry.WKTGeometryType.POLYGON;
 import static java.lang.ThreadLocal.withInitial;
 
 public class PolygonWKTPrinter implements GeometryWKTPrinter<Polygon> {
@@ -13,7 +14,7 @@ public class PolygonWKTPrinter implements GeometryWKTPrinter<Polygon> {
 
 	@Override
 	public String print(Polygon geometry) {
-		return "POLYGON " + printShortDecorated(geometry);
+		return POLYGON.getWktName() + " " + printShortDecorated(geometry);
 	}
 
 	@Override

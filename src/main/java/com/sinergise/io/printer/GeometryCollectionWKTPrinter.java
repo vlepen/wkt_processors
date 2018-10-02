@@ -6,12 +6,13 @@ import com.sinergise.geometry.GeometryCollection;
 import java.util.stream.IntStream;
 
 import static com.sinergise.io.common.WKTConstants.EMPTY;
+import static com.sinergise.io.geometry.WKTGeometryType.GEOMETRY_COLLECTION;
 import static com.sinergise.io.printer.util.WKTPrintersDelegate.delegateToPrinter;
 
 public class GeometryCollectionWKTPrinter implements GeometryWKTPrinter<GeometryCollection<? extends Geometry>> {
 	@Override
 	public String print(GeometryCollection<? extends Geometry> geometry) {
-		StringBuilder wktString = new StringBuilder("GEOMETRYCOLLECTION ");
+		StringBuilder wktString = new StringBuilder(GEOMETRY_COLLECTION.getWktName() + " ");
 		if (geometry.isEmpty()) {
 			wktString.append(EMPTY);
 		} else {

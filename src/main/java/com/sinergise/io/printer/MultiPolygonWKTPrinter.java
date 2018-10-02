@@ -5,6 +5,7 @@ import com.sinergise.geometry.MultiPolygon;
 import java.util.stream.IntStream;
 
 import static com.sinergise.io.common.WKTConstants.EMPTY;
+import static com.sinergise.io.geometry.WKTGeometryType.MULTI_POLYGON;
 import static java.lang.ThreadLocal.withInitial;
 
 public class MultiPolygonWKTPrinter implements GeometryWKTPrinter<MultiPolygon> {
@@ -12,7 +13,7 @@ public class MultiPolygonWKTPrinter implements GeometryWKTPrinter<MultiPolygon> 
 
 	@Override
 	public String print(MultiPolygon geometry) {
-		return "MULTIPOLYGON " + printShortDecorated(geometry);
+		return MULTI_POLYGON.getWktName() + " " + printShortDecorated(geometry);
 	}
 
 	@Override

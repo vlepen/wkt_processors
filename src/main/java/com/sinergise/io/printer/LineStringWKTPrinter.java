@@ -5,12 +5,13 @@ import com.sinergise.geometry.LineString;
 import java.util.stream.IntStream;
 
 import static com.sinergise.io.common.WKTConstants.EMPTY;
+import static com.sinergise.io.geometry.WKTGeometryType.LINE_STRING;
 import static java.lang.String.format;
 
 public class LineStringWKTPrinter implements GeometryWKTPrinter<LineString> {
 	@Override
 	public String print(LineString geometry) {
-		return "LINESTRING " + printShortDecorated(geometry);
+		return LINE_STRING.getWktName() + " " + printShortDecorated(geometry);
 	}
 
 	@Override

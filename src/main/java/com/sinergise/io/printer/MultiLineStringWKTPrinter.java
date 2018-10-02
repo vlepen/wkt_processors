@@ -5,6 +5,7 @@ import com.sinergise.geometry.MultiLineString;
 import java.util.stream.IntStream;
 
 import static com.sinergise.io.common.WKTConstants.EMPTY;
+import static com.sinergise.io.geometry.WKTGeometryType.MULTI_LINE_STRING;
 import static java.lang.ThreadLocal.withInitial;
 
 public class MultiLineStringWKTPrinter implements GeometryWKTPrinter<MultiLineString> {
@@ -13,7 +14,7 @@ public class MultiLineStringWKTPrinter implements GeometryWKTPrinter<MultiLineSt
 
 	@Override
 	public String print(MultiLineString geometry) {
-		return "MULTILINESTRING " + printShortDecorated(geometry);
+		return MULTI_LINE_STRING.getWktName() + " " + printShortDecorated(geometry);
 	}
 
 	@Override

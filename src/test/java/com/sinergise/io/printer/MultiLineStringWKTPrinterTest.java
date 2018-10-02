@@ -8,12 +8,12 @@ import static org.assertj.core.api.Assertions.assertThat;
 
 public class MultiLineStringWKTPrinterTest {
 	@Test
-	public void shouldPrintEmptyMultiPoint() {
+	public void shouldPrintEmptyMultiLineString() {
 		assertThat(new MultiLineStringWKTPrinter().print(new MultiLineString())).isEqualTo("MULTILINESTRING EMPTY");
 	}
 
 	@Test
-	public void shouldPrintNonEmptyMultiPoint() {
+	public void shouldPrintNonEmptyMultiLineString() {
 		assertThat(new MultiLineStringWKTPrinter().print(createMultiLineString()))
 				.isEqualTo("MULTILINESTRING ((10 10, 20 20, 10 40), (40.456 40, 30 30, 40.21 20, 30 10))");
 	}
