@@ -10,8 +10,8 @@ import static com.sinergise.geometry.GeometryType.*;
 import static java.util.Map.entry;
 
 public final class WKTReadersDelegate {
-	private static final ThreadLocal<Map<GeometryType, GeometryWKTReader<? extends Geometry>>> READERS =
-			ThreadLocal.withInitial(() -> Map.ofEntries(
+	private static final Map<GeometryType, GeometryWKTReader<? extends Geometry>> READERS =
+			Map.ofEntries(
 					entry(POINT, new PointWKTReader()),
 					entry(LINE_STRING, new LineStringWKTReader()),
 					entry(POLYGON, new PolygonWKTReader()),
@@ -19,13 +19,13 @@ public final class WKTReadersDelegate {
 					entry(MULTI_POINT, new MultiPointWKTReader()),
 					entry(MULTI_LINE_STRING, new MultiLineStringWKTReader()),
 					entry(MULTI_POLYGON, new MultiPolygonWKTReader())
-			));
+			);
 
 	private WKTReadersDelegate() {
 	}
 
 	public static Geometry delegateToReader(GeometryType geometryType, String values) {
-		GeometryWKTReader reader = READERS.get().get(geometryType);
+		GeometryWKTReader reader = READERS.get(geometryType);
 		return reader.read(values);
 	}
 }

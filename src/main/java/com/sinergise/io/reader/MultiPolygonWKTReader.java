@@ -4,12 +4,11 @@ import com.sinergise.geometry.MultiPolygon;
 import com.sinergise.geometry.Polygon;
 
 import static com.sinergise.io.common.WKTConstants.EMPTY;
-import static java.lang.ThreadLocal.withInitial;
 import static java.util.Arrays.stream;
 
 public class MultiPolygonWKTReader implements GeometryWKTReader<MultiPolygon> {
 	private static final String WKT_REGEX = "\\)\\),\\s\\(\\(";
-	private static final ThreadLocal<PolygonWKTReader> POLYGON_READER = withInitial(PolygonWKTReader::new);
+	private static final PolygonWKTReader POLYGON_READER = new PolygonWKTReader();
 
 	@Override
 	public MultiPolygon read(String wktString) {
@@ -20,7 +19,7 @@ public class MultiPolygonWKTReader implements GeometryWKTReader<MultiPolygon> {
 		String[] splitPolygons = wktString.split(WKT_REGEX);
 
 		return new MultiPolygon(stream(splitPolygons)
-				.map(polygonString -> POLYGON_READER.get().read(adjustBracketsInPolygonString(polygonString)))
+				.map(polygonString -> POLYGON_READER.read(adjustBracketsInPolygonString(polygonString)))
 				.toArray(Polygon[]::new));
 	}
 

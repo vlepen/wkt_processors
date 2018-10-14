@@ -10,8 +10,8 @@ import static com.sinergise.geometry.GeometryType.*;
 import static java.util.Map.entry;
 
 public final class WKTWritersDelegate {
-	private static final ThreadLocal<Map<GeometryType, GeometryWKTWriter<? extends Geometry>>> WRITERS =
-			ThreadLocal.withInitial(() -> Map.ofEntries(
+	private static final Map<GeometryType, GeometryWKTWriter<? extends Geometry>> WRITERS =
+			Map.ofEntries(
 					entry(POINT, new PointWKTWriter()),
 					entry(LINE_STRING, new LineStringWKTWriter()),
 					entry(POLYGON, new PolygonWKTWriter()),
@@ -19,13 +19,13 @@ public final class WKTWritersDelegate {
 					entry(MULTI_POINT, new MultiPointWKTWriter()),
 					entry(MULTI_LINE_STRING, new MultiLineStringWKTWriter()),
 					entry(MULTI_POLYGON, new MultiPolygonWKTWriter())
-			));
+			);
 
 	private WKTWritersDelegate() {
 	}
 
 	public static String delegateToWriter(Geometry geometry) {
-		GeometryWKTWriter writer = WRITERS.get().get(GeometryType.findByClass(geometry.getClass()));
+		GeometryWKTWriter writer = WRITERS.get(GeometryType.findByClass(geometry.getClass()));
 		return writer.write(geometry);
 	}
 }

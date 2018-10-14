@@ -6,11 +6,9 @@ import java.util.stream.IntStream;
 
 import static com.sinergise.io.common.WKTConstants.EMPTY;
 import static com.sinergise.io.geometry.WKTGeometryType.MULTI_LINE_STRING;
-import static java.lang.ThreadLocal.withInitial;
 
 public class MultiLineStringWKTWriter implements GeometryWKTWriter<MultiLineString> {
-	private static final ThreadLocal<LineStringWKTWriter> LINE_STRING_WRITER =
-			withInitial(LineStringWKTWriter::new);
+	private static final LineStringWKTWriter LINE_STRING_WRITER = new LineStringWKTWriter();
 
 	@Override
 	public String write(MultiLineString geometry) {
@@ -25,7 +23,7 @@ public class MultiLineStringWKTWriter implements GeometryWKTWriter<MultiLineStri
 		} else {
 			IntStream.range(0, geometry.size())
 					.forEach(i -> {
-						wktString.append(LINE_STRING_WRITER.get().writeShortDecorated(geometry.get(i)));
+						wktString.append(LINE_STRING_WRITER.writeShortDecorated(geometry.get(i)));
 						if (i < geometry.size() - 1) {
 							wktString.append(", ");
 						}

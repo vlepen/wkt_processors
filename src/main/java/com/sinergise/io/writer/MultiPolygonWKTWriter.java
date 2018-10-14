@@ -6,10 +6,9 @@ import java.util.stream.IntStream;
 
 import static com.sinergise.io.common.WKTConstants.EMPTY;
 import static com.sinergise.io.geometry.WKTGeometryType.MULTI_POLYGON;
-import static java.lang.ThreadLocal.withInitial;
 
 public class MultiPolygonWKTWriter implements GeometryWKTWriter<MultiPolygon> {
-	private static final ThreadLocal<PolygonWKTWriter> POLYGON_WRITER = withInitial(PolygonWKTWriter::new);
+	private static final PolygonWKTWriter POLYGON_WRITER = new PolygonWKTWriter();
 
 	@Override
 	public String write(MultiPolygon geometry) {
@@ -24,7 +23,7 @@ public class MultiPolygonWKTWriter implements GeometryWKTWriter<MultiPolygon> {
 		} else {
 			IntStream.range(0, geometry.size())
 					.forEach(i -> {
-						wktString.append(POLYGON_WRITER.get().writeShortDecorated(geometry.get(i)));
+						wktString.append(POLYGON_WRITER.writeShortDecorated(geometry.get(i)));
 						if (i < geometry.size() - 1) {
 							wktString.append(", ");
 						}

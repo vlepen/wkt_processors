@@ -9,12 +9,10 @@ import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
 import static com.sinergise.io.common.WKTConstants.EMPTY;
-import static java.lang.ThreadLocal.withInitial;
 
 public class MultiPointWKTReader implements GeometryWKTReader<MultiPoint> {
-	private static final String WKT_REGEX = "\\((?<point>[-\\d\\. ,]+)\\)";
-	private static final ThreadLocal<PointWKTReader> POINT_READER =
-			withInitial(PointWKTReader::new);
+	private static final String WKT_REGEX = "\\((?<point>[-\\d. ,]+)\\)";
+	private static final PointWKTReader POINT_READER = new PointWKTReader();
 
 	@Override
 	public MultiPoint read(String wktString) {
@@ -27,7 +25,7 @@ public class MultiPointWKTReader implements GeometryWKTReader<MultiPoint> {
 		while (matcher.find()) {
 			String point = matcher.group("point");
 			if (point != null) {
-				points.add(POINT_READER.get().read(point));
+				points.add(POINT_READER.read(point));
 			}
 		}
 		return new MultiPoint(points.toArray(new Point[0]));

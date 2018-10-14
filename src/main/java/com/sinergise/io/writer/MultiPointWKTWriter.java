@@ -6,10 +6,9 @@ import java.util.stream.IntStream;
 
 import static com.sinergise.io.common.WKTConstants.EMPTY;
 import static com.sinergise.io.geometry.WKTGeometryType.MULTI_POINT;
-import static java.lang.ThreadLocal.withInitial;
 
 public class MultiPointWKTWriter implements GeometryWKTWriter<MultiPoint> {
-	private static final ThreadLocal<PointWKTWriter> POINT_WRITER = withInitial(PointWKTWriter::new);
+	private static final PointWKTWriter POINT_WRITER = new PointWKTWriter();
 
 	@Override
 	public String write(MultiPoint geometry) {
@@ -24,7 +23,7 @@ public class MultiPointWKTWriter implements GeometryWKTWriter<MultiPoint> {
 		} else {
 			IntStream.range(0, geometry.size())
 					.forEach(i -> {
-						wktString.append(POINT_WRITER.get().writeShortDecorated(geometry.get(i)));
+						wktString.append(POINT_WRITER.writeShortDecorated(geometry.get(i)));
 						if (i < geometry.size() - 1) {
 							wktString.append(", ");
 						}

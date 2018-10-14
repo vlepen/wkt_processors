@@ -10,12 +10,10 @@ import java.util.regex.Pattern;
 
 import static com.sinergise.io.common.WKTConstants.EMPTY;
 import static java.lang.String.format;
-import static java.lang.ThreadLocal.withInitial;
 
 public class PolygonWKTReader implements GeometryWKTReader<Polygon> {
-	private static final String WKT_REGEX = "\\((?<linestring>[-\\d\\. ,]+)\\)";
-	private static final ThreadLocal<LineStringWKTReader> LINE_STRING_READER =
-			withInitial(LineStringWKTReader::new);
+	private static final String WKT_REGEX = "\\((?<linestring>[-\\d. ,]+)\\)";
+	private static final LineStringWKTReader LINE_STRING_READER = new LineStringWKTReader();
 
 	@Override
 	public Polygon read(String wktString) {
@@ -30,10 +28,10 @@ public class PolygonWKTReader implements GeometryWKTReader<Polygon> {
 		while (matcher.find()) {
 			String lineString = matcher.group("linestring");
 			if (!hasParsedOuter) {
-				outer = LINE_STRING_READER.get().read(lineString);
+				outer = LINE_STRING_READER.read(lineString);
 				hasParsedOuter = true;
 			} else if (lineString != null) {
-				holes.add(LINE_STRING_READER.get().read(lineString));
+				holes.add(LINE_STRING_READER.read(lineString));
 			}
 		}
 		if (outer == null) {
